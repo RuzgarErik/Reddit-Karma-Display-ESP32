@@ -6,9 +6,13 @@ import json
 sta_if = network.WLAN(network.STA_IF)
 ap_if = network.WLAN(network.AP_IF)
 sta_if.active(True)
-sta_if.connect('Ruzgar_Icat_Sirketi', 'rissJhhjnlcd91993')
-
-
+sta_if.connect('<wifiapname>', '<wifipass>')
+for i in range(50):
+  if sta_if.isconnected():
+    break
+  time.sleep_ms(100)
+else:
+  raise RuntimeError('WiFi connection failed')
 i2c = machine.I2C(scl=machine.Pin(4), sda=machine.Pin(5))
 oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 oled.fill(0)
